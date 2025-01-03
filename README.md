@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JsonSight - JSON Field Editor
 
-## Getting Started
+JsonSight is a modern web application that allows you to easily edit and manage your JSON data. You can select and remove fields, preview the JSON output, and download the edited data.
 
-First, run the development server:
+![JsonSight Screenshot](https://)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 📁 Upload and read JSON files
+- ✨ Drag and drop file support
+- 🔍 Field selection and removal
+- 📋 Real-time JSON preview
+- 💾 Download edited JSON
+- 🌍 Multi-language support (EN, TR, DE, FR)
+- 🎨 Modern and user-friendly interface
+- 🌓 Semi-transparent background effects
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Technologies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [Next.js 14](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [next-intl](https://next-intl-docs.vercel.app/)
+- [Lucide Icons](https://lucide.dev/)
 
-## Learn More
+## 📦 Installation
 
-To learn more about Next.js, take a look at the following resources:
+1.  Clone the project:\
+    git clone <https://github.com/omerkaracay/json-sight.git>\
+    cd jsonmind
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2.  Install dependencies:\
+    npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3.  Start the development server:\
+    npm run dev
 
-## Deploy on Vercel
+4.  Open in your browser:\
+    [http://localhost:3000](http://localhost:3000/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔧 Configuration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Language Support
+
+JSON files for each language are located in the `langs` folder:
+
+- 🇬🇧 `en.json`
+- 🇹🇷 `tr.json`
+- 🇩🇪 `de.json`
+- 🇫🇷 `fr.json`
+
+### UI Components
+
+To add shadcn/ui components:\
+npx shadcn@latest add [component-name]
+
+## 📝 Usage
+
+1.  Drag and drop your JSON file or use the file picker
+2.  Select the fields you want to display
+3.  Check the JSON output
+4.  Download the edited data
+
+## 🌟 Features and Use Cases
+
+- Field Filtering: Select specific fields in large JSON data while hiding others
+- Bulk Field Selection: Quick field management with "Select All" and "Deselect All" buttons
+- Real-time Preview: See your changes instantly
+- Easy Export: Download the edited data as a JSON file with one click
+
+## 💻 Development
+
+The project structure follows a modular approach with components organized by functionality:
+
+src/\
+├── components/\
+│ ├── layout/\
+│ │ ├── footer.tsx\
+│ │ └── header.tsx\
+│ ├── json-editor/\
+│ │ ├── upload-card.tsx\
+│ │ ├── field-selection.tsx\
+│ │ ├── json-output.tsx\
+│ │ └── types.ts\
+│ └── ui/\
+│ └── ... (shadcn components)
+
+## 🤝 Contributing
+
+1.  Fork the project
+2.  Create your feature branch (git checkout -b feature/amazing-feature)
+3.  Commit your changes (git commit -m 'feat: Add amazing feature')
+4.  Push to the branch (git push origin feature/amazing-feature)
+5.  Open a Pull Request
+
+## 🐛 Known Issues
+
+- Large JSON files (>80MB) may cause performance issues
+- Some browser extensions might interfere with the drag and drop functionality
+
+## 🔜 Upcoming Features
+
+- [ ] Dark mode support
+- [ ] JSON validation and formatting
+- [ ] Field search functionality
+- [ ] Export to different formats
+- [ ] Save preferences locally
+
+## 📄 License
+
+You can use this project as you want.
+
+## 👨‍💻 Developer
+
+Ömer Karaçay - [karacay.fi](https://karacay.fi)
+
+## ☕ Support
+
+If you like this project and want to support the developer:
+
+[Buy Me A Coffee](https://www.buymeacoffee.com/karacay)
+
+## 🙏 Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- And all other open-source libraries used in this project

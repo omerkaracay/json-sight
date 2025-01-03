@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Json Sight",
+  title: "JsonSight",
   description: "A JSON editor for filtering and exporting data",
 };
 
