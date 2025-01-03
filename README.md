@@ -4,6 +4,10 @@ JsonSight is a modern web application that allows you to easily edit and manage 
 
 ![JsonSight Screenshot](https://raw.githubusercontent.com/omerkaracay/json-sight/refs/heads/main/screenshot.png)
 
+## 🖥️ Demo
+
+- [JsonSight Demo](https://jsonsight.karacay.fi)
+
 ## 🚀 Features
 
 - 📁 Upload and read JSON files
