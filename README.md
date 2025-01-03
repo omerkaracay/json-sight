@@ -26,7 +26,7 @@ JsonSight is a modern web application that allows you to easily edit and manage 
 
 1.  Clone the project:\
     git clone <https://github.com/omerkaracay/json-sight.git>\
-    cd jsonmind
+    cd json-sight
 
 2.  Install dependencies:\
     npm install
