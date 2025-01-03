@@ -1,0 +1,24 @@
+{
+  "title": "JSON Sight",
+  "subtitle": "JSON dosyanızı yükleyin, alanları seçin ve düzenlenmiş veriyi indirin",
+  "upload": {
+    "title": "JSON Dosyası Seçin",
+    "subtitle": "veya sürükleyip bırakın",
+    "format": "JSON formatında dosya (.json)"
+  },
+  "fields": {
+    "title": "Görünür Alanlar",
+    "selectAll": "Hepsini Seç",
+    "deselectAll": "Hiçbirini Seçme",
+    "count": "{count} alan"
+  },
+  "output": {
+    "title": "JSON Çıktısı",
+    "download": "JSON Dosyası İndir",
+    "records": "{count} kayıt"
+  },
+  "errors": {
+    "arrayRequired": "Yüklenen JSON verisinin bir dizi (array) olması gerekmektedir.",
+    "invalidFormat": "Geçersiz JSON dosyası. Lütfen doğru formatta bir JSON dosyası yükleyin."
+  }
+}

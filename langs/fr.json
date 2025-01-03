@@ -1,0 +1,24 @@
+{
+  "title": "JSON Sight",
+  "subtitle": "Téléchargez votre fichier JSON, sélectionnez les champs et téléchargez les données modifiées",
+  "upload": {
+    "title": "Choisir un fichier JSON",
+    "subtitle": "ou glisser-déposer",
+    "format": "Fichier au format JSON (.json)"
+  },
+  "fields": {
+    "title": "Champs visibles",
+    "selectAll": "Tout sélectionner",
+    "deselectAll": "Tout désélectionner",
+    "count": "{count} champs"
+  },
+  "output": {
+    "title": "Sortie JSON",
+    "download": "Télécharger le fichier JSON",
+    "records": "{count} enregistrements"
+  },
+  "errors": {
+    "arrayRequired": "Le JSON téléchargé doit être un tableau.",
+    "invalidFormat": "Fichier JSON invalide. Veuillez télécharger un fichier au format JSON correct."
+  }
+}

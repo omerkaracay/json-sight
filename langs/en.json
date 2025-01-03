@@ -1,0 +1,24 @@
+{
+  "title": "JSON Sight",
+  "subtitle": "Upload your JSON file, select fields and download edited data",
+  "upload": {
+    "title": "Choose JSON File",
+    "subtitle": "or drag and drop",
+    "format": "JSON format file (.json)"
+  },
+  "fields": {
+    "title": "Visible Fields",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "count": "{count} fields"
+  },
+  "output": {
+    "title": "JSON Output",
+    "download": "Download JSON File",
+    "records": "{count} records"
+  },
+  "errors": {
+    "arrayRequired": "The uploaded JSON must be an array.",
+    "invalidFormat": "Invalid JSON file. Please upload a file in correct JSON format."
+  }
+}

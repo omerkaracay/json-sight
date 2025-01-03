@@ -1,101 +1,241 @@
-import Image from "next/image";
+"use client";
+
+import { useState, ChangeEvent } from "react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Download, Upload, CheckSquare, Square } from "lucide-react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [data, setData] = useState<any[]>([]);
+  const [selectedFields, setSelectedFields] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [allFields, setAllFields] = useState<string[]>([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileReader = new FileReader();
+    fileReader.onload = (event) => {
+      try {
+        const json = JSON.parse(event.target?.result as string);
+
+        if (!Array.isArray(json)) {
+          alert(
+            "Yüklenen JSON verisinin bir dizi (array) olması gerekmektedir."
+          );
+          return;
+        }
+
+        setData(json);
+
+        const fieldSet = new Set<string>();
+        json.forEach((item: any) => {
+          Object.keys(item).forEach((key) => {
+            fieldSet.add(key);
+          });
+        });
+
+        const fieldsArray = Array.from(fieldSet);
+
+        const initialSelectedFields: { [key: string]: boolean } = {};
+        fieldsArray.forEach((key) => {
+          initialSelectedFields[key] = true;
+        });
+
+        setAllFields(fieldsArray);
+        setSelectedFields(initialSelectedFields);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        alert(
+          "Geçersiz JSON dosyası. Lütfen doğru formatta bir JSON dosyası yükleyin."
+        );
+      }
+    };
+    if (e.target.files && e.target.files[0]) {
+      fileReader.readAsText(e.target.files[0]);
+    }
+  };
+
+  const toggleField = (field: string) => {
+    setSelectedFields((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
+  const selectAllFields = () => {
+    const newSelectedFields: { [key: string]: boolean } = {};
+    allFields.forEach((field) => {
+      newSelectedFields[field] = true;
+    });
+    setSelectedFields(newSelectedFields);
+  };
+
+  const deselectAllFields = () => {
+    const newSelectedFields: { [key: string]: boolean } = {};
+    allFields.forEach((field) => {
+      newSelectedFields[field] = false;
+    });
+    setSelectedFields(newSelectedFields);
+  };
+
+  const filteredData = data.map((item) => {
+    const filteredItem: { [key: string]: any } = {};
+    allFields.forEach((key) => {
+      if (selectedFields[key] && key in item) {
+        filteredItem[key] = item[key];
+      }
+    });
+    return filteredItem;
+  });
+
+  const downloadJSON = () => {
+    const jsonString = JSON.stringify(filteredData, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "filtered_data.json";
+    link.click();
+
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Header Section */}
+        <div className="text-center space-y-2">
+          <h1 className="text-4xl font-bold tracking-tight">JSON Editor</h1>
+          <p className="text-muted-foreground">
+            JSON dosyanızı yükleyin, alanları seçin ve düzenlenmiş veriyi
+            indirin
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Upload Card */}
+        <Card className="border-dashed">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-center">
+              <Label
+                htmlFor="file-upload"
+                className="relative cursor-pointer bg-white px-6 py-8 border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 transition-colors w-full"
+              >
+                <div className="space-y-3 text-center">
+                  <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                  <div className="flex flex-col items-center">
+                    <span className="font-semibold text-primary">
+                      JSON Dosyası Seçin
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      veya sürükleyip bırakın
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    JSON formatında dosya (.json)
+                  </p>
+                </div>
+                <Input
+                  id="file-upload"
+                  type="file"
+                  accept=".json"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+              </Label>
+            </div>
+          </CardContent>
+        </Card>
+
+        {data.length > 0 && (
+          <div className="grid gap-6 md:grid-cols-[350px,1fr]">
+            {/* Left Panel - Field Selection */}
+            <Card>
+              <CardHeader className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <CardTitle>Görünür Alanlar</CardTitle>
+                  <Badge variant="secondary">{allFields.length} alan</Badge>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={selectAllFields}
+                    className="flex-1"
+                  >
+                    <CheckSquare className="h-4 w-4 mr-2" />
+                    Hepsini Seç
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={deselectAllFields}
+                    className="flex-1"
+                  >
+                    <Square className="h-4 w-4 mr-2" />
+                    Hiçbirini Seçme
+                  </Button>
+                </div>
+              </CardHeader>
+              <Separator />
+              <ScrollArea className="h-[400px] p-4">
+                <div className="space-y-2">
+                  {allFields.map((field) => (
+                    <div
+                      key={field}
+                      className="flex items-center space-x-2 rounded-lg p-2 hover:bg-gray-100 transition-colors"
+                    >
+                      <Checkbox
+                        id={field}
+                        checked={selectedFields[field]}
+                        onCheckedChange={() => toggleField(field)}
+                      />
+                      <Label
+                        htmlFor={field}
+                        className="flex-1 cursor-pointer text-sm"
+                      >
+                        {field}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
+            </Card>
+
+            {/* Right Panel - JSON Output */}
+            <Card>
+              <CardHeader className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <CardTitle>JSON Çıktısı</CardTitle>
+                  <Badge>{data.length} kayıt</Badge>
+                </div>
+                <Button
+                  onClick={downloadJSON}
+                  variant="outline"
+                  className="w-full"
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  JSON Dosyası İndir
+                </Button>
+              </CardHeader>
+              <Separator />
+              <CardContent>
+                <ScrollArea className="h-[400px] w-full rounded-md border bg-muted p-4">
+                  <pre className="text-sm">
+                    {JSON.stringify(filteredData, null, 2)}
+                  </pre>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

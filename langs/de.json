@@ -1,0 +1,24 @@
+{
+  "title": "JSON Sight",
+  "subtitle": "Laden Sie Ihre JSON-Datei hoch, wählen Sie Felder aus und laden Sie bearbeitete Daten herunter",
+  "upload": {
+    "title": "JSON-Datei auswählen",
+    "subtitle": "oder per Drag & Drop",
+    "format": "JSON-Formatdatei (.json)"
+  },
+  "fields": {
+    "title": "Sichtbare Felder",
+    "selectAll": "Alle auswählen",
+    "deselectAll": "Alle abwählen",
+    "count": "{count} Felder"
+  },
+  "output": {
+    "title": "JSON-Ausgabe",
+    "download": "JSON-Datei herunterladen",
+    "records": "{count} Einträge"
+  },
+  "errors": {
+    "arrayRequired": "Die hochgeladene JSON muss ein Array sein.",
+    "invalidFormat": "Ungültige JSON-Datei. Bitte laden Sie eine Datei im korrekten JSON-Format hoch."
+  }
+}
