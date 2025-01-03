@@ -1,56 +1,54 @@
-import { getMessages } from "next-intl/server";
+// app/[locale]/layout.tsx
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
-import { ReactNode } from "react";
-import { Metadata } from "next";
-import { locales, Locale } from "../../i18n/settings";
+import { locales, Locale } from "@/i18n/settings";
 
-interface LocaleLayoutProps {
-  children: ReactNode;
+type Props = {
+  children: React.ReactNode;
   params: {
-    locale: Locale;
+    locale: Locale; // string yerine Locale tipini kullanıyoruz
   };
-}
+};
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
   return {
     title: "JsonSight",
     description: "Modern JSON Editor with field filtering capabilities",
-    viewport: "width=device-width, initial-scale=1",
-    icons: {
-      icon: "/favicon.ico",
-    },
   };
 }
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export function generateStaticParams() {
-  return locales.map((locale) => ({
-    locale,
-  }));
+  return locales.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({
-  children,
-  params: { locale },
-}: LocaleLayoutProps) {
+export default async function Layout(props: Props) {
+  const locale = props.params.locale;
+
+  // Validate locale
   if (!locales.includes(locale)) {
     notFound();
   }
 
-  const messages = await getMessages({
-    locale,
-  });
+  // Enable static rendering
+  unstable_setRequestLocale(locale);
+
+  const messages = await getMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <head />
       <body suppressHydrationWarning>
         <NextIntlClientProvider
           locale={locale}
           messages={messages}
           timeZone="Europe/Helsinki"
         >
-          {children}
+          {props.children}
         </NextIntlClientProvider>
       </body>
     </html>

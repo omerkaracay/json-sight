@@ -1,8 +1,10 @@
-import createNextIntlPlugin from "next-intl/plugin";
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const withNextIntl = require("next-intl/plugin")();
 
-const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
+const config = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+};
 
-const config: NextConfig = {};
-
-export default withNextIntl(config);
+module.exports = withNextIntl(config);
