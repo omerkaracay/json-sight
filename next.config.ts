@@ -3,6 +3,6 @@ import type { NextConfig } from "next";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
-const nextConfig: NextConfig = {};
+const config: NextConfig = {};
 
-export default withNextIntl(nextConfig);
+export default withNextIntl(config);

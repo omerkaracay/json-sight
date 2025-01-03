@@ -1,18 +1,22 @@
-// app/[locale]/layout.tsx
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
+import { ReactNode } from "react";
+import { locales } from "@/i18n/settings";
 
-const locales = ["en", "tr", "de", "fr"];
+interface LayoutProps {
+  children: ReactNode;
+  params: {
+    locale: string;
+  };
+}
 
 export default async function LocaleLayout({
   children,
   params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
-  if (!locales.includes(locale)) notFound();
+}: LayoutProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if (!locales.includes(locale as any)) notFound();
 
   const messages = await getMessages({
     locale,
@@ -31,4 +35,8 @@ export default async function LocaleLayout({
       </body>
     </html>
   );
+}
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
 }
