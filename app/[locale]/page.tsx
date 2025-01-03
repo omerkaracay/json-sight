@@ -8,20 +8,23 @@ import { UploadCard } from "@/components/json-editor/upload-card";
 import { FieldSelection } from "@/components/json-editor/field-selection";
 import { JsonOutput } from "@/components/json-editor/json-output";
 import { Footer } from "@/components/layout/footer";
+import { JsonData } from "@/components/json-editor/types";
+
+interface SelectedFields {
+  [key: string]: boolean;
+}
 
 export default function Home() {
   const t = useTranslations();
-  const [data, setData] = useState<any[]>([]);
-  const [selectedFields, setSelectedFields] = useState<{
-    [key: string]: boolean;
-  }>({});
+  const [data, setData] = useState<JsonData[]>([]);
+  const [selectedFields, setSelectedFields] = useState<SelectedFields>({});
   const [allFields, setAllFields] = useState<string[]>([]);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileReader = new FileReader();
     fileReader.onload = (event) => {
       try {
-        const json = JSON.parse(event.target?.result as string);
+        const json = JSON.parse(event.target?.result as string) as JsonData[];
 
         if (!Array.isArray(json)) {
           alert(t("errors.arrayRequired"));
@@ -31,7 +34,7 @@ export default function Home() {
         setData(json);
 
         const fieldSet = new Set<string>();
-        json.forEach((item: any) => {
+        json.forEach((item: JsonData) => {
           Object.keys(item).forEach((key) => {
             fieldSet.add(key);
           });
@@ -39,15 +42,17 @@ export default function Home() {
 
         const fieldsArray = Array.from(fieldSet);
 
-        const initialSelectedFields: { [key: string]: boolean } = {};
+        const initialSelectedFields: SelectedFields = {};
         fieldsArray.forEach((key) => {
           initialSelectedFields[key] = true;
         });
 
         setAllFields(fieldsArray);
         setSelectedFields(initialSelectedFields);
-      } catch (error) {
+      } catch (_error) {
+        // '_' prefix ile kullanılmayan değişkeni belirtiyoruz
         alert(t("errors.invalidFormat"));
+        console.log(_error);
       }
     };
     if (e.target.files && e.target.files[0]) {
@@ -63,7 +68,7 @@ export default function Home() {
   };
 
   const selectAllFields = () => {
-    const newSelectedFields: { [key: string]: boolean } = {};
+    const newSelectedFields: SelectedFields = {};
     allFields.forEach((field) => {
       newSelectedFields[field] = true;
     });
@@ -71,7 +76,7 @@ export default function Home() {
   };
 
   const deselectAllFields = () => {
-    const newSelectedFields: { [key: string]: boolean } = {};
+    const newSelectedFields: SelectedFields = {};
     allFields.forEach((field) => {
       newSelectedFields[field] = false;
     });
@@ -79,7 +84,7 @@ export default function Home() {
   };
 
   const filteredData = data.map((item) => {
-    const filteredItem: { [key: string]: any } = {};
+    const filteredItem: JsonData = {};
     allFields.forEach((key) => {
       if (selectedFields[key] && key in item) {
         filteredItem[key] = item[key];
