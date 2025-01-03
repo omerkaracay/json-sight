@@ -2,7 +2,7 @@
 
 JsonSight is a modern web application that allows you to easily edit and manage your JSON data. You can select and remove fields, preview the JSON output, and download the edited data.
 
-![JsonSight Screenshot](https://)
+![JsonSight Screenshot](https://raw.githubusercontent.com/omerkaracay/json-sight/refs/heads/main/screenshot.png)
 
 ## 🚀 Features
 
