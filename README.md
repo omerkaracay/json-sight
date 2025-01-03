@@ -12,8 +12,6 @@ JsonSight is a modern web application that allows you to easily edit and manage 
 - 📋 Real-time JSON preview
 - 💾 Download edited JSON
 - 🌍 Multi-language support (EN, TR, DE, FR)
-- 🎨 Modern and user-friendly interface
-- 🌓 Semi-transparent background effects
 
 ## 🛠️ Technologies
 
@@ -68,23 +66,6 @@ npx shadcn@latest add [component-name]
 - Bulk Field Selection: Quick field management with "Select All" and "Deselect All" buttons
 - Real-time Preview: See your changes instantly
 - Easy Export: Download the edited data as a JSON file with one click
-
-## 💻 Development
-
-The project structure follows a modular approach with components organized by functionality:
-
-src/\
-├── components/\
-│ ├── layout/\
-│ │ ├── footer.tsx\
-│ │ └── header.tsx\
-│ ├── json-editor/\
-│ │ ├── upload-card.tsx\
-│ │ ├── field-selection.tsx\
-│ │ ├── json-output.tsx\
-│ │ └── types.ts\
-│ └── ui/\
-│ └── ... (shadcn components)
 
 ## 🤝 Contributing
 
