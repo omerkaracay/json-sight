@@ -1,4 +1,3 @@
-// src/components/json-editor/field-selection.tsx
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

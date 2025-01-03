@@ -1,19 +1,15 @@
-// tailwind.config.js
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}", // Veya "./pages/**/*.{ts,tsx}"
-    "./components/**/*.{js,ts,jsx,tsx}", // Veya "./components/**/*.{ts,tsx}"
-    "./app/**/*.{js,ts,jsx,tsx}", // Next.js 13 kullanıyorsanız
-    // shadcn/ui bileşenleri için:
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
     "./components/ui/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        // shadcn/ui tarafından kullanılan renk değişkenleri
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

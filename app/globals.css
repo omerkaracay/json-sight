@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* shadcn/ui için gerekli temel stiller */
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -60,7 +58,6 @@
     --chart-5: 340 75% 55%;
   }
 
-  /* Yazı tipi ayarları */
   body {
     font-family: "Inter", sans-serif;
   }

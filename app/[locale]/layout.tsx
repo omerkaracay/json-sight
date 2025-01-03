@@ -9,7 +9,6 @@ export default async function LocaleLayout({
   children: ReactNode;
   params: { locale: string };
 }) {
-  // Mesajları sunucu tarafında yükle
   const messages = await getMessages();
 
   return (
